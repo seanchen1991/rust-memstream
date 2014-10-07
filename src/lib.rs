@@ -9,6 +9,7 @@ use std::slice;
 use std::cmp::min;
 use std::io::IoResult;
 
+/// `MemStream` is a reader + writer stream backed by an in-memory buffer
 pub struct MemStream {
     buf: Vec<u8>,
     pos: uint    
@@ -26,9 +27,10 @@ impl MemStream {
     /// Tests whether this stream has read all bytes in its ring buffer
     /// If `true`, then this will no longer return bytes from `read`
     pub fn eof(&self) -> bool { self.pos >= self.buf.len() }
-    
+    /// Acquires an immutable reference to the underlying buffer of 
+    /// this `MemStream`
     pub fn get_ref<'a>(&'a self) -> &'a [u8] { self.buf.as_slice() }
-
+    /// Unwraps this `MemStream`, returning the underlying buffer
     pub fn unwrap(self) -> Vec<u8> { self.buf }
 }
 
