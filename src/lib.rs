@@ -2,5 +2,5 @@
 #![deny(missing_doc)]
 #![deny(warnings)]
 
-//! Crate comment goes here
+//! A reader + writer stream backed by an in-memory buffer.
 
