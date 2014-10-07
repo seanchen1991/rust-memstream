@@ -18,9 +18,9 @@ pub struct MemStream {
 #[deriving(PartialOrd)]
 impl MemStream {
     /// Creates a new `MemStream` which can be read and written to 
-    pub fn new(buf: Vec<u8>) -> MemStream {
+    pub fn new() -> MemStream {
         MemStream {
-            buf: buf,
+            buf: vec![],
             pos: 0 
         }
     }
@@ -29,7 +29,7 @@ impl MemStream {
     pub fn eof(&self) -> bool { self.pos >= self.buf.len() }
     /// Acquires an immutable reference to the underlying buffer of 
     /// this `MemStream`
-    pub fn get_ref<'a>(&'a self) -> &'a [u8] { self.buf.as_slice() }
+    pub fn as_slice<'a>(&'a self) -> &'a [u8] { self.buf.as_slice() }
     /// Unwraps this `MemStream`, returning the underlying buffer
     pub fn unwrap(self) -> Vec<u8> { self.buf }
 }
@@ -61,20 +61,15 @@ impl Writer for MemStream {
 #[cfg(test)]
 mod test {
     extern crate test;
-    use memstream::MemStream;
+    use MemStream;
 
     #[test]
-    fn test_mem_stream_write() {
-        let mut stream = MemStream::new(vec!(0));
-        stream.write([1, 2, 3]).unwrap();
+    fn test_mem_stream_read_and_write() {
+        let mut stream = MemStream::new();
+        stream.write([0, 1, 2, 3]).unwrap();
         stream.write([4, 5, 6, 7]).unwrap();
         let b: &[_] = &[0, 1, 2, 3, 4, 5, 6, 7];
-        assert_eq!(stream.get_ref(), b);
-    }
-
-    #[test]
-    fn test_mem_stream_read() {
-        let mut stream = MemStream::new(vec!(0, 1, 2, 3, 4, 5, 6, 7));
+        assert_eq!(stream.as_slice(), b);
         let mut buf = [];
         assert_eq!(stream.read(buf), Ok(0));
         let mut buf = [0];
