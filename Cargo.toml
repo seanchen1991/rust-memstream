@@ -1,11 +1,11 @@
 [package]
 
-name = "project-name"
+name = "memstream"
 version = "0.0.1"
-authors = ["Jonathan Reem <jonathan.reem@gmail.com>"]
+authors = ["Sean Chen <seanchen11235@gmail.com>"]
 
 [lib]
 
-name = "project-name"
+name = "memstream"
 path = "src/lib.rs"
 
