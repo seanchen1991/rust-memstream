@@ -1,11 +1,14 @@
 [package]
 
 name = "memstream"
-version = "0.0.1"
+description = "A reader + writer stream backed by an in-memory buffer."
+version = "0.1.0"
 authors = ["Sean Chen <seanchen11235@gmail.com>"]
+license = "MIT"
+repository = "https://github.com/seanchen1991/rust-memstream"
+homepage = "https://github.com/seanchen1991/rust-memstream"
 
 [lib]
 
-name = "memstream"
 path = "src/lib.rs"
-
+doctest = false
